@@ -234,8 +234,8 @@ export default function FloatingLines({
   enabledWaves = ['top', 'middle', 'bottom'],
   lineCount = [6],
   lineDistance = [5],
-  topWavePosition,
-  middleWavePosition,
+  topWavePosition = undefined,
+  middleWavePosition = undefined,
   bottomWavePosition = { x: 2.0, y: -0.7, rotate: -1 },
   animationSpeed = 1,
   interactive = true,
@@ -365,6 +365,8 @@ export default function FloatingLines({
 
     const setSize = () => {
       const el = containerRef.current;
+      if (!el) return;
+      
       const width = el.clientWidth || 1;
       const height = el.clientHeight || 1;
 

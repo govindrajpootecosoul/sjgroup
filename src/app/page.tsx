@@ -150,6 +150,8 @@ export default function Home() {
             enabledWaves={['top', 'middle', 'bottom']}
             lineCount={[4, 6, 4]}
             lineDistance={[5, 5, 5]}
+            topWavePosition={undefined}
+            middleWavePosition={undefined}
             animationSpeed={0.5}
             interactive={true}
             parallax={true}

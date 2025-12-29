@@ -8,7 +8,7 @@ const toCssLength = (value: number | string | undefined): string | undefined =>
 
 const useResizeObserver = (
   callback: () => void,
-  elements: React.RefObject<HTMLElement>[],
+  elements: React.RefObject<HTMLElement | null>[],
   dependencies: any[]
 ) => {
   useEffect(() => {
@@ -32,7 +32,7 @@ const useResizeObserver = (
 };
 
 const useImageLoader = (
-  seqRef: React.RefObject<HTMLElement>,
+  seqRef: React.RefObject<HTMLElement | null>,
   onLoad: () => void,
   dependencies: any[]
 ) => {
@@ -67,7 +67,7 @@ const useImageLoader = (
 };
 
 const useAnimationLoop = (
-  trackRef: React.RefObject<HTMLElement>,
+  trackRef: React.RefObject<HTMLElement | null>,
   targetVelocity: number,
   seqWidth: number,
   seqHeight: number,
@@ -237,11 +237,11 @@ export const LogoLoop = memo<LogoLoopProps>(
       }
     }, [isVertical]);
 
-    useResizeObserver(updateDimensions, [containerRef, seqRef], [logos, gap, logoHeight, isVertical]);
+    useResizeObserver(updateDimensions, [containerRef as React.RefObject<HTMLElement | null>, seqRef as React.RefObject<HTMLElement | null>], [logos, gap, logoHeight, isVertical]);
 
-    useImageLoader(seqRef, updateDimensions, [logos, gap, logoHeight, isVertical]);
+    useImageLoader(seqRef as React.RefObject<HTMLElement | null>, updateDimensions, [logos, gap, logoHeight, isVertical]);
 
-    useAnimationLoop(trackRef, targetVelocity, seqWidth, seqHeight, isHovered, effectiveHoverSpeed, isVertical);
+    useAnimationLoop(trackRef as React.RefObject<HTMLElement | null>, targetVelocity, seqWidth, seqHeight, isHovered, effectiveHoverSpeed, isVertical);
 
     const cssVariables = useMemo(
       () => ({
