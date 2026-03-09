@@ -178,6 +178,172 @@ export default function SJTechPage() {
         </div>
       </AnimatedSection>
 
+      {/* Operations Pain Points */}
+      <AnimatedSection className="py-20 bg-[var(--background-secondary)]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-6 text-center"
+          >
+            Businesses Waste Massive Time on Manual Operations
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-[var(--foreground-muted)] text-center max-w-3xl mx-auto mb-10"
+          >
+            The pain we all feel: modern organizations are bleeding time and capital. Fragmented tools,
+            repetitive manual tasks, and siloed data streams result in high employee churn, excessive
+            reporting overhead, and lost revenue opportunities. Every hour wasted is a lost sale.
+          </motion.p>
+
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
+            <GlassCard className="h-full">
+              <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2">
+                Data &amp; Reporting is Still Manual
+              </h3>
+              <ul className="list-disc list-inside text-[var(--foreground-muted)] space-y-1 text-sm">
+                <li>Teams spend 4–6 hours weekly creating reports in Excel.</li>
+                <li>Amazon sellers spend 2–3 hours daily downloading reports.</li>
+                <li>Data from multiple systems must be manually cleaned and combined.</li>
+              </ul>
+              <div className="mt-4 h-1.5 w-full rounded-full bg-gradient-to-r from-[var(--accent)] to-[var(--primary)]" />
+            </GlassCard>
+
+            <GlassCard className="h-full">
+              <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2">
+                Too Many Disconnected Tools
+              </h3>
+              <ul className="list-disc list-inside text-[var(--foreground-muted)] space-y-1 text-sm">
+                <li>Separate platforms for HR, Attendance, Assets, Finance, Support, and Analytics.</li>
+                <li>Creates massive data silos.</li>
+                <li>Causes severe operational inefficiency.</li>
+              </ul>
+              <div className="mt-4 h-1.5 w-full rounded-full bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)]" />
+            </GlassCard>
+
+            <GlassCard className="h-full">
+              <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2">
+                Lack of Real-Time Visibility
+              </h3>
+              <ul className="list-disc list-inside text-[var(--foreground-muted)] space-y-1 text-sm">
+                <li>Weekly or monthly reporting hides real-time performance.</li>
+                <li>Inventory issues are discovered too late.</li>
+                <li>Finance teams take days to prepare actionable insights.</li>
+              </ul>
+              <div className="mt-4 h-1.5 w-full rounded-full bg-gradient-to-r from-[var(--secondary)] to-[var(--accent)]" />
+            </GlassCard>
+
+            <GlassCard className="h-full">
+              <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2">
+                Operational Impact
+              </h3>
+              <ul className="list-disc list-inside text-[var(--foreground-muted)] space-y-1 text-sm">
+                <li>60+ hours lost per month per team.</li>
+                <li>Increased operational costs.</li>
+                <li>Slow decision making.</li>
+                <li>Higher error rates in business data.</li>
+              </ul>
+              <div className="mt-4 grid grid-cols-2 gap-2 text-xs text-[var(--foreground-muted)]">
+                <div className="p-2 rounded-lg bg-[var(--background-secondary)]/80">
+                  <div className="font-semibold text-[var(--foreground)]">60+ hrs</div>
+                  <div>Lost per team / month</div>
+                </div>
+                <div className="p-2 rounded-lg bg-[var(--background-secondary)]/80">
+                  <div className="font-semibold text-[var(--foreground)]">High</div>
+                  <div>Error &amp; rework risk</div>
+                </div>
+              </div>
+            </GlassCard>
+          </div>
+
+          {/* Charts */}
+          <div className="mt-10 grid md:grid-cols-2 gap-6">
+            <GlassCard className="bg-[#02192a] border-0 text-[#DAE0F2]">
+              <h3 className="text-lg font-semibold mb-1">Weekly Time Drain per Employee</h3>
+              <p className="text-xs text-[#A7B6D9] mb-4">
+                Routine report downloading, cleaning, and HR manual tracking consume massive portions of
+                the workweek. This donut chart illustrates the average hours wasted per week on
+                non-strategic manual tasks across different roles.
+              </p>
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="relative w-40 h-40">
+                  <div className="absolute inset-0 rounded-full bg-[#1C3B5A]" />
+                  <div className="absolute inset-3 rounded-full border-[14px] border-[#3B82F6] border-t-[#E5E7EB] border-l-[#F59E0B] border-b-[#111827]" />
+                  <div className="absolute inset-9 rounded-full bg-[#02192a]" />
+                </div>
+                <div className="space-y-2 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-sm bg-[#F59E0B]" />
+                    <span>HR Manual Tracking</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-sm bg-[#3B82F6]" />
+                    <span>Routine Report Prep</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-sm bg-[#E5E7EB]" />
+                    <span>Amazon Data Stitching</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-sm bg-[#111827]" />
+                    <span>Error Rework</span>
+                  </div>
+                </div>
+              </div>
+            </GlassCard>
+
+            <GlassCard className="bg-[#02192a] border-0 text-[#DAE0F2]">
+              <h3 className="text-lg font-semibold mb-1">Hidden Annual Costs (Per 15 Employees)</h3>
+              <p className="text-xs text-[#A7B6D9] mb-4">
+                Fragmented tools lead to revenue loss and excessive labor costs. This chart visualizes how
+                manual reporting and tool fragmentation quickly reach six-figure losses for a small team.
+              </p>
+              <div className="h-44 flex items-end gap-4 mb-4">
+                <div className="flex-1 flex flex-col justify-end">
+                  <div className="w-full bg-[#1C3B5A] rounded-t-md" style={{ height: '85%' }} />
+                  <span className="mt-2 text-xs text-center">Reporting Labor</span>
+                </div>
+                <div className="flex-1 flex flex-col justify-end">
+                  <div className="w-full bg-[#3B82F6] rounded-t-md" style={{ height: '40%' }} />
+                  <span className="mt-2 text-xs text-center">HR Manual Entry</span>
+                </div>
+                <div className="flex-1 flex flex-col justify-end">
+                  <div className="w-full bg-[#60A5FA] rounded-t-md" style={{ height: '65%' }} />
+                  <span className="mt-2 text-xs text-center">Tool Fragmentation</span>
+                </div>
+              </div>
+              <div className="flex justify-between text-[10px] text-[#6B7280]">
+                <span>$0k</span>
+                <span>$10k</span>
+                <span>$20k</span>
+                <span>$30k+</span>
+              </div>
+            </GlassCard>
+          </div>
+
+          {/* Transforming Operational Efficiency Highlight */}
+          <GlassCard className="mt-10 bg-[var(--premium)] text-white border-0">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div>
+                <h3 className="text-xl font-bold mb-2">
+                  Transforming Operational Efficiency
+                </h3>
+                <p className="text-sm md:text-base text-white/90 max-w-2xl">
+                  90% of organizations report that repetitive manual tasks actively hurt morale and drive staff turnover.
+                  A 1–3% data error rate in spreadsheets forces hours of costly rework every single month.
+                </p>
+              </div>
+            </div>
+          </GlassCard>
+        </div>
+      </AnimatedSection>
+
       {/* Key Offerings Section */}
       <AnimatedSection className="py-24 relative overflow-hidden bg-[var(--background-secondary)]">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -296,10 +462,10 @@ export default function SJTechPage() {
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <GlassCard className="p-12 md:p-16 bg-gradient-to-br from-[var(--primary)]/5 to-[var(--secondary)]/5">
             <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-4">
-              Ready to Move Forward?
+            Invest in the Future of Work
             </h2>
             <p className="text-lg text-[var(--foreground-muted)] mb-8 max-w-2xl mx-auto">
-              Let&apos;s discuss how our technology solutions can transform your business operations and drive growth.
+            Sj Tech Solutions is positioned to capture the massive demand for business automation, driving immediate ROI for our clients and recurring, scalable revenue for our clients.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/contact">

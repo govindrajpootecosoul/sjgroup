@@ -7,82 +7,85 @@
 /* Base Theme Variables */
 :root {
   /* Light Mode Colors (Default) */
-  --background: #ffffff;
-  --background-secondary: #f8fafb;
-  --background-tertiary: #f0f4f5;
-  --foreground: #1a2b3c;
-  --foreground-muted: #5a6b7c;
-  --foreground-light: #8a9bac;
+  --background: #f2f4f3; /* White Smoke - main background (60%) */
+  --background-secondary: #9eb3c2; /* Powder Blue - soft sections (10%) */
+  --background-tertiary: #ffffff; /* Pure white cards/content */
+  --foreground: #012436; /* Deep Space Blue - primary text */
+  --foreground-muted: #41566a;
+  --foreground-light: #7b8da0;
   
-  /* Brand Colors - Modern Teal/Earthy */
-  --primary: #0d9488;
-  --primary-light: #14b8a6;
-  --primary-dark: #0f766e;
-  --primary-muted: rgba(13, 148, 136, 0.1);
+  /* Brand Colors - Deep Tech SaaS */
+  --primary: #012436; /* Deep Space Blue */
+  --primary-light: #023a5b;
+  --primary-dark: #011624;
+  --primary-muted: rgba(1, 36, 54, 0.12);
   
-  --secondary: #0891b2;
-  --secondary-light: #22d3ee;
+  --secondary: #9eb3c2; /* Powder Blue */
+  --secondary-light: #c0d0de;
   
-  --accent: #f59e0b;
-  --accent-light: #fbbf24;
+  --accent: #f96900; /* Pumpkin Spice - CTA */
+  --accent-light: #ff8a33;
+  
+  /* Premium Accent */
+  --premium: #3b0d11; /* Rich Mahogany - pricing/testimonials highlights */
   
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #0d9488 0%, #0891b2 100%);
-  --gradient-hero: linear-gradient(135deg, #0a0a0a 0%, #0d3331 50%, #14b8a6 100%);
-  --gradient-subtle: linear-gradient(135deg, rgba(13, 148, 136, 0.05) 0%, rgba(8, 145, 178, 0.05) 100%);
+  --gradient-primary: linear-gradient(135deg, #012436 0%, #9eb3c2 100%);
+  --gradient-hero: linear-gradient(135deg, #012436 0%, #011624 50%, #3b0d11 100%);
+  --gradient-subtle: linear-gradient(135deg, rgba(1, 36, 54, 0.05) 0%, rgba(158, 179, 194, 0.08) 100%);
   
   /* Glassmorphism */
   --glass-bg: rgba(255, 255, 255, 0.9);
-  --glass-border: rgba(13, 148, 136, 0.15);
+  --glass-border: rgba(1, 36, 54, 0.12);
   --glass-shadow: rgba(0, 0, 0, 0.08);
   
   /* Card Styles */
   --card-bg: #ffffff;
-  --card-border: rgba(13, 148, 136, 0.12);
-  --card-hover-border: rgba(13, 148, 136, 0.4);
+  --card-border: rgba(1, 36, 54, 0.12);
+  --card-hover-border: rgba(1, 36, 54, 0.4);
   
   /* Shadows */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.08);
-  --shadow-glow: 0 0 30px rgba(13, 148, 136, 0.15);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 30px rgba(1, 36, 54, 0.25);
   
   /* Navigation */
-  --nav-bg: rgba(255, 255, 255, 0.95);
-  --nav-border: rgba(0, 0, 0, 0.05);
+  --nav-bg: rgba(1, 36, 54, 0.98); /* Deep Space Blue navbar */
+  --nav-border: rgba(158, 179, 194, 0.35);
 }
 
 /* Dark Mode */
 .dark {
-  --background: #0a1214;
-  --background-secondary: #111d21;
-  --background-tertiary: #162428;
-  --foreground: #f0f4f5;
-  --foreground-muted: #9ca3af;
-  --foreground-light: #6b7280;
+  --background: #010913;
+  --background-secondary: #02192a;
+  --background-tertiary: #02101b;
+  --foreground: #f2f4f3;
+  --foreground-muted: #9eb3c2;
+  --foreground-light: #c0d0de;
   
   /* Glassmorphism */
-  --glass-bg: rgba(17, 29, 33, 0.9);
-  --glass-border: rgba(20, 184, 166, 0.2);
-  --glass-shadow: rgba(0, 0, 0, 0.4);
+  --glass-bg: rgba(2, 16, 27, 0.92);
+  --glass-border: rgba(158, 179, 194, 0.35);
+  --glass-shadow: rgba(0, 0, 0, 0.5);
   
   /* Gradients */
-  --gradient-subtle: linear-gradient(135deg, rgba(13, 148, 136, 0.1) 0%, rgba(8, 145, 178, 0.1) 100%);
+  --gradient-subtle: linear-gradient(135deg, rgba(1, 36, 54, 0.18) 0%, rgba(59, 13, 17, 0.24) 100%);
   
   /* Card Styles */
-  --card-bg: rgba(17, 29, 33, 0.8);
-  --card-border: rgba(20, 184, 166, 0.2);
-  --card-hover-border: rgba(20, 184, 166, 0.5);
+  --card-bg: rgba(2, 16, 27, 0.9);
+  --card-border: rgba(158, 179, 194, 0.35);
+  --card-hover-border: rgba(249, 105, 0, 0.6);
   
   /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.4);
-  --shadow-glow: 0 0 40px rgba(20, 184, 166, 0.2);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 40px rgba(249, 105, 0, 0.35);
   
   /* Navigation */
-  --nav-bg: rgba(10, 18, 20, 0.95);
-  --nav-border: rgba(20, 184, 166, 0.1);
+  --nav-bg: rgba(1, 9, 19, 0.98);
+  --nav-border: rgba(158, 179, 194, 0.25);
 }
 
 @theme inline {
@@ -170,7 +173,7 @@ p, li, span, a {
    ============================================ */
 
 .btn-primary {
-  background: var(--gradient-primary);
+  background: var(--accent);
   color: white;
   font-weight: 600;
   padding: 0.875rem 2rem;
@@ -194,7 +197,8 @@ p, li, span, a {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(13, 148, 136, 0.3);
+  background: #e65d00; /* Darker Pumpkin Spice on hover */
+  box-shadow: 0 10px 30px rgba(249, 105, 0, 0.35);
 }
 
 .btn-primary:hover::before {
@@ -203,11 +207,11 @@ p, li, span, a {
 
 .btn-secondary {
   background: transparent;
-  color: var(--foreground);
+  color: var(--primary);
   font-weight: 600;
   padding: 0.875rem 2rem;
   border-radius: 0.75rem;
-  border: 2px solid var(--card-border);
+  border: 2px solid var(--primary);
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -215,9 +219,10 @@ p, li, span, a {
 }
 
 .btn-secondary:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  box-shadow: 0 0 20px rgba(13, 148, 136, 0.15);
+  border-color: var(--secondary);
+  color: var(--secondary);
+  background: rgba(158, 179, 194, 0.18); /* Powder Blue hover */
+  box-shadow: 0 0 20px rgba(1, 36, 54, 0.15);
 }
 
 /* ============================================
@@ -252,11 +257,10 @@ p, li, span, a {
 .hero-gradient {
   background: linear-gradient(
     135deg,
-    #0a0a0a 0%,
-    #0d2927 30%,
-    #0f3d3a 50%,
-    #115e5a 70%,
-    #14b8a6 100%
+    #010913 0%,
+    #012436 35%,
+    #011624 65%,
+    #3b0d11 100%
   );
   position: relative;
 }
@@ -270,7 +274,7 @@ p, li, span, a {
   height: 100%;
   background: radial-gradient(
     ellipse at top right,
-    rgba(20, 184, 166, 0.4) 0%,
+    rgba(249, 105, 0, 0.35) 0%,
     transparent 60%
   );
   pointer-events: none;
@@ -285,8 +289,8 @@ p, li, span, a {
     45deg,
     transparent,
     transparent 100px,
-    rgba(20, 184, 166, 0.03) 100px,
-    rgba(20, 184, 166, 0.03) 200px
+    rgba(249, 105, 0, 0.03) 100px,
+    rgba(249, 105, 0, 0.03) 200px
   );
   pointer-events: none;
 }
@@ -441,7 +445,7 @@ p, li, span, a {
    ============================================ */
 
 ::selection {
-  background: rgba(13, 148, 136, 0.2);
+  background: rgba(1, 36, 54, 0.18);
   color: var(--foreground);
 }
 

@@ -122,7 +122,7 @@ export function PricingModal({
                   className="bg-[var(--card-bg)] border border-[var(--card-border)] rounded-xl p-4 flex flex-col"
                 >
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] flex items-center justify-center">
                       {plans.individual.icon}
                     </div>
                     <div>
@@ -139,13 +139,13 @@ export function PricingModal({
                   <ul className="space-y-2 mb-4 flex-1">
                     {plans.individual.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start gap-2">
-                        <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                        <Check className="w-4 h-4 text-[var(--secondary)] flex-shrink-0 mt-0.5" />
                         <span className="text-xs text-[var(--foreground-muted)] leading-relaxed">{feature}</span>
                       </li>
                     ))}
                   </ul>
                   <motion.button
-                    className="w-full py-2 rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 text-white text-sm font-medium flex items-center justify-center gap-2 mt-auto"
+                  className="w-full py-2 rounded-lg bg-[var(--accent)] hover:bg-[#e65d00] text-white text-sm font-medium flex items-center justify-center gap-2 mt-auto transition-colors"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -153,22 +153,22 @@ export function PricingModal({
                   </motion.button>
                 </motion.div>
 
-                {/* Business Plan */}
+                {/* Business Plan (Premium Highlight) */}
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl p-4 text-white relative flex flex-col"
+                  className="bg-[var(--premium)] rounded-xl p-4 text-white relative flex flex-col shadow-lg"
                 >
                   {plans.business.highlighted && (
                     <div className="absolute -top-2 right-3">
-                      <span className="px-2 py-0.5 rounded-full bg-green-400 text-green-900 text-xs font-medium">
+                      <span className="px-2 py-0.5 rounded-full bg-[var(--accent)] text-white text-xs font-medium">
                         Popular
                       </span>
                     </div>
                   )}
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 rounded-lg bg-green-400/20 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
                       {plans.business.icon}
                     </div>
                     <div>
@@ -191,7 +191,7 @@ export function PricingModal({
                     ))}
                   </ul>
                   <motion.button
-                    className="w-full py-2 rounded-lg bg-white text-green-700 text-sm font-medium flex items-center justify-center gap-2 mt-auto"
+                    className="w-full py-2 rounded-lg bg-[var(--accent)] hover:bg-[#e65d00] text-white text-sm font-medium flex items-center justify-center gap-2 mt-auto transition-colors"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >

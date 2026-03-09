@@ -132,7 +132,7 @@ export function Footer() {
                 className="flex items-center gap-2 text-sm text-[var(--foreground-muted)] hover:text-[var(--primary)] transition-colors"
               >
                 <Phone className="w-4 h-4" />
-                <span>+1 (234) 567-890</span>
+                <span>(+91) 831 887 5772</span>
               </a>
               <div className="flex items-start gap-2 text-sm text-[var(--foreground-muted)]">
                 <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />

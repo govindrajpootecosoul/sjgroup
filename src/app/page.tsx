@@ -12,7 +12,9 @@ import {
   Building2,
   Cpu,
   ChevronRight,
-  Lightbulb
+  Lightbulb,
+  Airplay,
+  BrainCircuitIcon
 } from 'lucide-react';
 import { GlassCard, AnimatedSection, StaggerContainer, StaggerItem } from '@/components';
 import { Snowfall } from '@/components/Snowfall';
@@ -52,6 +54,26 @@ const features = [
     title: 'Innovation First',
     description: 'Continuous R&D investment driving breakthrough innovations that transform industries.',
   },
+  {
+    icon: Airplay,
+    title: 'Automated Data & Reporting',
+    description: 'Automatically collects and processes business data. Eliminates manual report downloads completely. Generates real-time dashboards and actionable insights.',
+  },
+  {
+    icon: Lightbulb,
+    title: 'Seller Central Intelligence',
+    description: 'Direct integration with Amazon APIs, Tracks sales performance and advertising analytics, Monitors inventory and calculates true profitability in one place.',
+  },
+  {
+    icon: Lightbulb,
+    title: 'Unified Business Ecosystem',
+    description: 'Replaces multiple fragmented tools with one system. Integrated HRMS and Employee Portal. Built-in Asset Management and Support Tracking. Comprehensive analytics dashboards.',
+  },
+  {
+    icon: BrainCircuitIcon,
+    title: 'AI-Powered Business Assistant',
+    description: 'Ask simple questions like “What were yesterday’s sales?” or “Which product is out of stock?” Identify best performing ad campaigns instantly. AI retrieves answers directly from your company data.',
+  },
 ];
 
 // Infinite Moving Cards items
@@ -59,7 +81,7 @@ const movingCardsItems = [
   { 
     name: 'Melora', 
     title: 'Retail & Fashion Solutions', 
-    bgColor: '#0d9488', 
+    bgColor: '#012436', 
     image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop&q=80',
     variant: 'card' as const 
   },
@@ -72,7 +94,7 @@ const movingCardsItems = [
   },
   { 
     name: 'SJ Tech', 
-    title: 'Technology Services', 
+    title: 'Digital Solutions & Services', 
     bgColor: '#7c3aed', 
     image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop&q=80',
     variant: 'card' as const 
@@ -101,7 +123,7 @@ const movingCardsItems = [
   { 
     name: 'Query Tracker', 
     title: 'Customer Support', 
-    bgColor: '#0891b2', 
+    bgColor: '#9EB3C2', 
     image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&h=600&fit=crop&q=80',
     variant: 'card' as const 
   },
@@ -120,19 +142,19 @@ const services = [
     title: 'Melora',
     description: 'Premium retail solutions for clothing businesses with AI-powered inventory and analytics.',
     href: '/services/melora',
-    gradient: 'from-teal-500 to-cyan-500',
+    gradient: 'from-[var(--primary)] to-[var(--secondary)]',
   },
   {
     title: 'JivaPure',
     description: 'Pure and natural products delivering wellness through sustainable practices.',
     href: '/services/jivapure',
-    gradient: 'from-green-500 to-emerald-500',
+    gradient: 'from-[var(--secondary)] to-white',
   },
   {
     title: 'SJ Tech Solution',
     description: 'Solutions that move you forward - Enterprise technology services at scale.',
     href: '/services/sj-tech',
-    gradient: 'from-violet-500 to-purple-500',
+    gradient: 'from-[var(--primary)] to-[var(--premium)]',
   },
 ];
 
@@ -414,91 +436,6 @@ export default function Home() {
                 </Link>
               </motion.div>
             ))}
-          </div>
-        </div>
-      </AnimatedSection>
-
-      {/* Products Section */}
-      <AnimatedSection className="py-24 relative overflow-hidden bg-[var(--background-secondary)]">
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-4xl md:text-5xl font-bold text-[var(--foreground)]"
-              >
-                {t('home.products.title').split(' ').map((word, i, arr) => (
-                  <span key={i}>
-                    {i === arr.length - 1 ? <span className="gradient-text">{word}</span> : word + ' '}
-                  </span>
-                ))}
-              </motion.h2>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="mt-4 text-lg text-[var(--foreground-muted)] leading-relaxed"
-              >
-                {t('home.products.subtitle')}
-              </motion.p>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="mt-8"
-              >
-                <Link href="/products">
-                  <motion.button
-                    className="btn-primary flex items-center gap-2"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    {t('common.viewAll')}
-                    <ChevronRight className="w-5 h-5" />
-                  </motion.button>
-                </Link>
-              </motion.div>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="relative"
-            >
-              <GlassCard className="p-8 relative overflow-hidden">
-                <div className="relative space-y-4">
-                  {[
-                    { name: 'HRMS', desc: 'Human Resource Management', color: 'from-blue-500 to-cyan-500', icon: Users },
-                    { name: 'ProjectHub', desc: 'Project Management Platform', color: 'from-violet-500 to-purple-500', icon: Building2 },
-                    { name: 'Asset Tracker', desc: 'Asset Management Solution', color: 'from-green-500 to-emerald-500', icon: Shield },
-                  ].map((product, index) => (
-                    <motion.div
-                      key={product.name}
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.3 + index * 0.1 }}
-                      className="flex items-center gap-4 p-4 rounded-xl bg-[var(--background)] border border-[var(--card-border)] hover:border-[var(--primary)] transition-colors"
-                    >
-                      <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${product.color} flex items-center justify-center`}>
-                        <product.icon className="w-5 h-5 text-white" />
-                      </div>
-                      <div>
-                        <div className="font-medium text-[var(--foreground)]">{product.name}</div>
-                        <div className="text-sm text-[var(--foreground-muted)]">{product.desc}</div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </GlassCard>
-            </motion.div>
           </div>
         </div>
       </AnimatedSection>

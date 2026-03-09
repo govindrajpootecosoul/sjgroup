@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { 
   Users,
@@ -13,6 +14,7 @@ import {
 import { PageHero, GlassCard, AnimatedSection } from '@/components';
 import { PricingModal } from '@/components/PricingModal';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
+import AssetWatchLogo from '@/components/logo_asset watch.png';
 
 interface PricingPlan {
   name: string;
@@ -36,13 +38,21 @@ interface Product {
   };
 }
 
+const AssetTrackerIcon = () => (
+  <Image
+    src={AssetWatchLogo}
+    alt="Asset Tracker logo"
+    className="w-8 h-8 object-contain"
+  />
+);
+
 const products: Product[] = [
   {
     id: 'hrms',
     name: 'HRMS',
     description: 'A comprehensive Human Resource Management System that streamlines HR operations, from recruitment to retirement, with intelligent automation and analytics.',
     icon: Users,
-    gradient: 'from-blue-500 to-cyan-500',
+    gradient: 'from-[var(--primary)] to-[var(--secondary)]',
     plans: {
       individual: {
         name: 'Individual',
@@ -90,7 +100,7 @@ const products: Product[] = [
     name: 'ProjectHub',
     description: 'Powerful project management platform for teams of all sizes with advanced collaboration tools and real-time tracking.',
     icon: Briefcase,
-    gradient: 'from-violet-500 to-purple-500',
+    gradient: 'from-[var(--primary)] to-[var(--premium)]',
     plans: {
       individual: {
         name: 'Individual',
@@ -133,8 +143,8 @@ const products: Product[] = [
     id: 'asset-tracker',
     name: 'Asset Tracker',
     description: 'Complete asset management solution for tracking and maintaining your assets with real-time visibility and automated workflows.',
-    icon: Package,
-    gradient: 'from-green-500 to-emerald-500',
+    icon: AssetTrackerIcon,
+    gradient: 'from-[var(--secondary)] to-white',
     plans: {
       individual: {
         name: 'Individual',

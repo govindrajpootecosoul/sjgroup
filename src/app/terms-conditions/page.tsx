@@ -115,7 +115,7 @@ We shall not be liable to you or any third party for any termination of your acc
 
 **General Inquiries**
 Email: legal@sjgroup.com
-Phone: +1 (234) 567-890
+Phone: (+91) 831 887 5772
 
 **Mailing Address**
 SJ Group

@@ -26,13 +26,13 @@ const contactInfo = [
   {
     icon: Phone,
     labelKey: 'Phone',
-    value: '+1 (234) 567-890',
+    value: '(+91) 831 887 5772',
     href: 'tel:+1234567890',
   },
   {
     icon: MapPin,
     labelKey: 'Address',
-    value: '123 Innovation Drive, Tech City, TC 12345',
+    value: 'Noida (India)',
     href: '#',
   },
   {

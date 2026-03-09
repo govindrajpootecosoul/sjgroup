@@ -130,8 +130,8 @@ For questions about this Privacy Policy or our data practices, please contact us
 
 **SJ Group**
 Email: privacy@sjgroup.com
-Phone: +1 (234) 567-890
-Address: 123 Innovation Drive, Tech City, TC 12345`,
+Phone: (+91) 831 887 5772
+Address: Noida (India)`,
   },
 ];
 

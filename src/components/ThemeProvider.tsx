@@ -2,46 +2,35 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 
-type Theme = 'light' | 'dark';
-
 interface ThemeContextType {
-  theme: Theme;
+  theme: 'light';
   toggleTheme: () => void;
-  setTheme: (theme: Theme) => void;
+  setTheme: (theme: 'light') => void;
   mounted: boolean;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('dark');
+  const [theme, setThemeState] = useState<'light'>('light');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    // Check localStorage first
-    const stored = localStorage.getItem('sj-theme') as Theme | null;
-    if (stored) {
-      setThemeState(stored);
-      document.documentElement.classList.toggle('dark', stored === 'dark');
-    } else {
-      // Check system preference
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const initialTheme = prefersDark ? 'dark' : 'light';
-      setThemeState(initialTheme);
-      document.documentElement.classList.toggle('dark', prefersDark);
-    }
+    // Always use light theme globally
+    document.documentElement.classList.remove('dark');
+    setThemeState('light');
   }, []);
 
-  const setTheme = (newTheme: Theme) => {
-    setThemeState(newTheme);
-    localStorage.setItem('sj-theme', newTheme);
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+  const setTheme = (_newTheme: 'light') => {
+    // Theme is fixed to light; keep API for compatibility
+    setThemeState('light');
+    document.documentElement.classList.remove('dark');
   };
 
   const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
+    // No-op: theming is fixed to light
+    setTheme('light');
   };
 
   return (

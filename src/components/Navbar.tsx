@@ -2,12 +2,13 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown } from 'lucide-react';
-import { ThemeToggle } from './ThemeToggle';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
+import SjLogo from './SJ Group.png';
 
 interface NavItem {
   labelKey: string;
@@ -78,13 +79,9 @@ export function Navbar() {
     ? 'bg-transparent'
     : 'bg-[var(--nav-bg)] backdrop-blur-xl border-b border-[var(--nav-border)]';
   
-  const textColor = isHomePage && !isScrolled
-    ? 'text-white'
-    : 'text-[var(--foreground-muted)]';
-  
-  const activeTextColor = isHomePage && !isScrolled
-    ? 'text-white font-semibold'
-    : 'text-[var(--primary)]';
+  // Desktop nav text colors
+  const textColor = 'text-white';
+  const activeTextColor = 'text-[#ff8a33] font-semibold';
 
   return (
     <>
@@ -99,11 +96,16 @@ export function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
               <motion.div
-                className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] flex items-center justify-center"
-                whileHover={{ scale: 1.05, rotate: 5 }}
+                className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center bg-transparent"
+                whileHover={{ scale: 1.05, rotate: 3 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span className="text-white font-bold text-lg">SJ</span>
+                <Image
+                  src={SjLogo}
+                  alt="SJ Group logo"
+                  className="w-10 h-10 object-contain"
+                  priority
+                />
               </motion.div>
               <span className={`text-xl font-bold transition-all duration-300 ${
                 isHomePage && !isScrolled ? 'text-white' : 'text-[var(--foreground)]'
@@ -120,7 +122,7 @@ export function Navbar() {
                     <button
                       onClick={() => setActiveDropdown(activeDropdown === item.labelKey ? null : item.labelKey)}
                       className={`flex items-center gap-1 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
-                        isActive(item.href) ? activeTextColor : `${textColor} hover:text-[var(--primary)]`
+                        isActive(item.href) ? activeTextColor : `${textColor} hover:text-[#DAE0F2]`
                       }`}
                     >
                       {t(item.labelKey)}
@@ -135,7 +137,7 @@ export function Navbar() {
                     <Link
                       href={item.href}
                       className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
-                        isActive(item.href) ? activeTextColor : `${textColor} hover:text-[var(--primary)]`
+                        isActive(item.href) ? activeTextColor : `${textColor} hover:text-[#DAE0F2]`
                       }`}
                     >
                       {t(item.labelKey)}
@@ -185,7 +187,6 @@ export function Navbar() {
             {/* Right Side Actions */}
             <div className="flex items-center gap-3">
               <LanguageSwitcher />
-              <ThemeToggle />
               
               {/* Mobile Menu Button */}
               <button

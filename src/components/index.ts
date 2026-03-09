@@ -1,6 +1,5 @@
 // Theme
 export { ThemeProvider, useTheme } from './ThemeProvider';
-export { ThemeToggle } from './ThemeToggle';
 
 // Layout
 export { Navbar } from './Navbar';
