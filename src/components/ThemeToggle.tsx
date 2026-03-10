@@ -6,6 +6,7 @@ import { useTheme } from './ThemeProvider';
 
 export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
+  const isDark = (theme as 'light' | 'dark') === 'dark';
 
   return (
     <motion.button
@@ -13,13 +14,13 @@ export function ThemeToggle() {
       className="relative w-12 h-12 rounded-xl bg-transparent flex items-center justify-center overflow-hidden hover:opacity-80 transition-opacity"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+      aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
     >
       <motion.div
         initial={false}
         animate={{
-          rotate: theme === 'dark' ? 0 : 180,
-          scale: theme === 'dark' ? 1 : 0
+          rotate: isDark ? 0 : 180,
+          scale: isDark ? 1 : 0
         }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
         className="absolute"
@@ -30,8 +31,8 @@ export function ThemeToggle() {
       <motion.div
         initial={false}
         animate={{
-          rotate: theme === 'light' ? 0 : -180,
-          scale: theme === 'light' ? 1 : 0
+          rotate: !isDark ? 0 : -180,
+          scale: !isDark ? 1 : 0
         }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
         className="absolute"
