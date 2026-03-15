@@ -1,139 +1,111 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useMemo, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   ArrowRight,
   BarChart3,
-  Database,
-  ShoppingCart,
-  Store,
-  Globe,
-  Smartphone,
   Building2,
-  Search,
-  Palette,
   Bot,
   ChevronRight,
   Zap,
   Users,
-  Clock
+  Clock,
+  X
 } from 'lucide-react';
-import { PageHero, GlassCard, AnimatedSection, ServiceSelectionFlow } from '@/components';
+import { PageHero, GlassCard, AnimatedSection } from '@/components';
 import { LogoLoop } from '@/components/LogoLoop';
-import { useLanguage } from '@/lib/i18n/LanguageProvider';
 
-interface ServiceOffering {
+interface SolutionPackage {
   id: string;
   icon: React.ElementType;
   title: string;
   description: string;
-  features: string[];
   color: string;
+  popupContent: string[];
 }
 
-const offerings: ServiceOffering[] = [
+const solutionPackages: SolutionPackage[] = [
   {
-    id: 'powerbi',
+    id: 'ecommerce-intelligence',
     icon: BarChart3,
-    title: 'Power BI Dashboarding',
-    description: 'Transform your raw data into stunning, interactive dashboards that drive informed decision-making across your organization.',
-    features: ['Custom dashboard design', 'Real-time data visualization', 'KPI tracking & monitoring', 'Automated report generation'],
+    title: 'E‑commerce Intelligence Suite',
+    description:
+      'A unified analytics platform that transforms marketplace data into actionable insights for smarter e-commerce decisions.',
     color: 'from-yellow-500 to-orange-500',
+    popupContent: [
+      'Amazon Sellercentral automation',
+      'Shopify report automation',
+      'Helium 10 scraping',
+      'Power BI dashboards',
+      'Tailored for brands and agencies',
+    ],
   },
   {
-    id: 'data-analysis',
-    icon: Database,
-    title: 'Data Analysis',
-    description: 'Extract meaningful insights from your data with advanced analytics, statistical modeling, and predictive analysis.',
-    features: ['Statistical analysis', 'Trend identification', 'Predictive modeling', 'Data mining & cleansing'],
-    color: 'from-blue-500 to-cyan-500',
-  },
-  {
-    id: 'amazon',
-    icon: ShoppingCart,
-    title: 'Amazon Sellercentral Report Automation',
-    description: 'Automate your Amazon seller reports and gain real-time insights into your sales performance, inventory, and customer metrics.',
-    features: ['Automated sales reports', 'Inventory tracking', 'Performance analytics', 'Profit margin analysis'],
-    color: 'from-orange-500 to-amber-500',
-  },
-  {
-    id: 'shopify',
-    icon: Store,
-    title: 'Shopify Report Automation',
-    description: 'Streamline your Shopify store analytics with automated reporting solutions that save time and improve accuracy.',
-    features: ['Sales trend analysis', 'Customer behavior insights', 'Inventory optimization', 'Revenue forecasting'],
-    color: 'from-green-500 to-emerald-500',
-  },
-  {
-    id: 'webdev',
-    icon: Globe,
-    title: 'Website/Webapp Development',
-    description: 'Build modern, responsive, and high-performance web applications tailored to your business needs.',
-    features: ['Custom web applications', 'E-commerce platforms', 'Progressive web apps', 'CMS development'],
-    color: 'from-violet-500 to-purple-500',
-  },
-  {
-    id: 'mobile',
-    icon: Smartphone,
-    title: 'iOS/Android App Development',
-    description: 'Create native and cross-platform mobile applications that deliver exceptional user experiences.',
-    features: ['Native iOS development', 'Native Android development', 'Cross-platform solutions', 'App maintenance & updates'],
-    color: 'from-pink-500 to-rose-500',
-  },
-  {
-    id: 'portal',
+    id: 'operations-control-tower',
     icon: Building2,
-    title: 'Business Portal/Custom Software',
-    description: 'Design and develop custom business portals and software solutions that streamline your operations.',
-    features: ['Custom ERP solutions', 'Employee portals', 'Client management systems', 'Workflow automation'],
+    title: 'Business Control Solution',
+    description:
+      'A centralized command center that monitors operations, automates workflows, and delivers real-time performance visibility.',
     color: 'from-indigo-500 to-blue-500',
+    popupContent: [
+      'SJ DataCanvas', 'HRMS', 'Asset Tracker', 'Query Tracker', 'ProjectHUB', 'Finance Tools',
+      'Custom business portal',
+    ],
   },
   {
-    id: 'helium',
-    icon: Search,
-    title: 'Helium 10 Data Scraping',
-    description: 'Leverage Helium 10 data to gain competitive insights and optimize your Amazon product listings.',
-    features: ['Keyword research automation', 'Competitor analysis', 'Product tracking', 'Market trend analysis'],
-    color: 'from-teal-500 to-cyan-500',
-  },
-  {
-    id: 'uiux',
-    icon: Palette,
-    title: 'UI/UX Design',
-    description: 'Create intuitive and visually stunning user interfaces that enhance user engagement and satisfaction.',
-    features: ['User research & testing', 'Wireframing & prototyping', 'Visual design systems', 'Accessibility optimization'],
-    color: 'from-fuchsia-500 to-pink-500',
-  },
-  {
-    id: 'ai',
+    id: 'product-experience-lab',
     icon: Bot,
-    title: 'Custom Agentic AI Chat Models',
-    description: 'Build intelligent AI-powered chatbots and virtual assistants tailored to your business workflows.',
-    features: ['Custom LLM fine-tuning', 'Multi-agent systems', 'Knowledge base integration', 'Conversational AI flows'],
+    title: 'Digital Solutions with Intelligence & Automation',
+    description:
+      'An innovation hub where data, design, and experimentation come together to build better digital products and user experiences.',
     color: 'from-emerald-500 to-teal-500',
+    popupContent: [
+      'Website and Webapp development with AI-powered chatbots',
+      'iOS and Android app development with AI-powered chatbots',
+      'UI/UX design',
+      'Custom AI chat models',
+    ],
   },
 ];
 
 const stats = [
-  { value: '200+', label: 'Projects Delivered', icon: Zap },
-  { value: '50+', label: 'Enterprise Clients', icon: Building2 },
-  { value: '150+', label: 'Tech Experts', icon: Users },
-  { value: '98%', label: 'Client Retention', icon: Clock },
+  { value: '40–80', label: 'Hours saved / month', icon: Clock },
+  { value: '20–30%', label: 'Reporting cost reduced', icon: Zap },
+  { value: '200+', label: 'Projects delivered', icon: Users },
+  { value: '150+', label: 'Tech & domain experts', icon: Building2 },
 ];
 
 export default function SJTechPage() {
-  const { t } = useLanguage();
-  const [selectedService, setSelectedService] = useState<ServiceOffering | null>(null);
+  const [selectedService, setSelectedService] = useState<SolutionPackage | null>(null);
   const [isFlowOpen, setIsFlowOpen] = useState(false);
 
-  const handleServiceClick = (offering: ServiceOffering) => {
+  const [teamSize, setTeamSize] = useState('15');
+  const [avgSalary, setAvgSalary] = useState('30000');
+  const [hoursWasted, setHoursWasted] = useState('10');
+
+  const estimatedMonthlySavings = useMemo(() => {
+    const size = Number(teamSize) || 0;
+    const salary = Number(avgSalary) || 0;
+    const hours = Number(hoursWasted) || 0;
+    if (!size || !salary || !hours) return 0;
+
+    const hourlyRate = salary / (22 * 8); // rough working days * hours
+    const totalHours = size * hours;
+    const baselineSavings = totalHours * hourlyRate;
+
+    // Assume automation can reclaim 40–60% of wasted time.
+    return Math.round(baselineSavings * 0.5);
+  }, [teamSize, avgSalary, hoursWasted]);
+
+  const handleServiceClick = (offering: SolutionPackage) => {
     setSelectedService(offering);
     setIsFlowOpen(true);
   };
 
-  const handleCloseFlow = () => {
+  const handleClosePopup = () => {
     setIsFlowOpen(false);
     setSelectedService(null);
   };
@@ -141,53 +113,96 @@ export default function SJTechPage() {
   return (
     <div className="min-h-screen">
       <PageHero
-        subtitle={t('services.sjtech.subtitle')}
-        title={t('services.sjtech.title')}
+        subtitle="For businesses tired of manual reporting and repetitive work"
+        title="Automation & analytics for businesses that want people focused on thinking, not copy‑paste"
+        compact
       >
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25 }}
+          className="max-w-4xl mx-auto mb-4"
+        >
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {stats.map((stat, index) => (
+              <div
+                key={stat.label}
+                className="glass-card p-4 text-center flex flex-col items-center gap-2"
+              >
+                <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] mb-1">
+                  <stat.icon className="w-5 h-5 text-white" />
+                </div>
+                <div className="text-xl font-bold text-[var(--foreground)]">{stat.value}</div>
+                <div className="text-[10px] uppercase tracking-wide text-[var(--foreground-muted)]">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="text-2xl md:text-3xl font-bold gradient-text mt-4"
+          transition={{ delay: 0.35 }}
+          className="text-lg md:text-xl font-semibold text-[var(--foreground-muted)] mt-2 max-w-3xl mx-auto"
         >
-          {t('services.sjtech.tagline')}
+          <span className="font-extrabold text-[var(--foreground)]">Cut 40–80+ hours</span>{' '}
+          of manual work every month with unified dashboards, workflows, and AI assistants for your reports, operations, and data.
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="mt-3 text-sm md:text-base text-[var(--foreground-muted)] max-w-2xl mx-auto"
+        >
+          We combine real operator experience with full-stack engineering to automate the boring work your team hates—across any industry or size of business.
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+          className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <Link href="/contact">
+            <motion.button
+              className="btn-primary flex items-center gap-2"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Book a 30-minute automation audit (free)
+              <ArrowRight className="w-5 h-5" />
+            </motion.button>
+          </Link>
+          <Link href="/about">
+            <motion.button
+              className="btn-secondary"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              See example dashboards & workflows
+            </motion.button>
+          </Link>
+        </motion.div>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9 }}
+          className="mt-3 text-xs md:text-sm text-[var(--foreground-muted)]"
+        >
+          Typical clients save 40–80 hours/month and 20–30% reporting cost within the first 90 days.
         </motion.p>
       </PageHero>
 
-      {/* Stats Section */}
-      <AnimatedSection className="py-16 relative bg-[var(--background)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="glass-card p-6 text-center group"
-              >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] mb-4 group-hover:scale-110 transition-transform">
-                  <stat.icon className="w-6 h-6 text-white" />
-                </div>
-                <div className="text-3xl md:text-4xl font-bold gradient-text">{stat.value}</div>
-                <div className="text-sm text-[var(--foreground-muted)] mt-1">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </AnimatedSection>
-
-      {/* Operations Pain Points */}
+      {/* Pain → ROI Section */}
       <AnimatedSection className="py-20 bg-[var(--background-secondary)]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-6 text-center"
+            className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-4 text-center"
           >
-            Businesses Waste Massive Time on Manual Operations
+            Turn manual reporting into automated insights
           </motion.h2>
 
           <motion.p
@@ -195,17 +210,26 @@ export default function SJTechPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-[var(--foreground-muted)] text-center max-w-3xl mx-auto mb-10"
+            className="text-[var(--foreground-muted)] text-center max-w-3xl mx-auto"
           >
-            The pain we all feel: modern organizations are bleeding time and capital. Fragmented tools,
-            repetitive manual tasks, and siloed data streams result in high employee churn, excessive
-            reporting overhead, and lost revenue opportunities. Every hour wasted is a lost sale.
+            SJ Tech centralises your business data and automates reporting so your team spends less time compiling
+            spreadsheets and more time making decisions.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15 }}
+            className="text-xs md:text-sm text-[var(--foreground-muted)] text-center max-w-2xl mx-auto mt-3 mb-10"
+          >
+            Modern teams shouldn&apos;t spend hours every week switching between tools, downloading reports, and merging data.
           </motion.p>
 
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
             <GlassCard className="h-full">
               <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2">
-                Data &amp; Reporting is Still Manual
+                Data &amp; reporting is still manual
               </h3>
               <ul className="list-disc list-inside text-[var(--foreground-muted)] space-y-1 text-sm">
                 <li>Teams spend 4–6 hours weekly creating reports in Excel.</li>
@@ -217,7 +241,7 @@ export default function SJTechPage() {
 
             <GlassCard className="h-full">
               <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2">
-                Too Many Disconnected Tools
+                Too many disconnected tools
               </h3>
               <ul className="list-disc list-inside text-[var(--foreground-muted)] space-y-1 text-sm">
                 <li>Separate platforms for HR, Attendance, Assets, Finance, Support, and Analytics.</li>
@@ -229,7 +253,7 @@ export default function SJTechPage() {
 
             <GlassCard className="h-full">
               <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2">
-                Lack of Real-Time Visibility
+                Lack of real-time visibility
               </h3>
               <ul className="list-disc list-inside text-[var(--foreground-muted)] space-y-1 text-sm">
                 <li>Weekly or monthly reporting hides real-time performance.</li>
@@ -241,7 +265,7 @@ export default function SJTechPage() {
 
             <GlassCard className="h-full">
               <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2">
-                Operational Impact
+                Operational impact
               </h3>
               <ul className="list-disc list-inside text-[var(--foreground-muted)] space-y-1 text-sm">
                 <li>60+ hours lost per month per team.</li>
@@ -262,11 +286,29 @@ export default function SJTechPage() {
             </GlassCard>
           </div>
 
-          {/* Charts */}
+          {/* Infographic: Hidden cost, full width */}
+          <div className="mb-10">
+            <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2">
+              The hidden cost of fragmented tools
+            </h3>
+            <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden">
+              <Image
+                src={require('@/components/hidden_loss.png')}
+                alt="Fragmented tools lead to hidden productivity losses"
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 960px, 100vw"
+              />
+            </div>
+          </div>
+
+          {/* Charts + Calculator */}
           <div className="mt-10 grid md:grid-cols-2 gap-6">
-            <GlassCard className="bg-[#02192a] border-0 text-[#DAE0F2]">
-              <h3 className="text-lg font-semibold mb-1">Weekly Time Drain per Employee</h3>
-              <p className="text-xs text-[#A7B6D9] mb-4">
+            <GlassCard>
+              <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2">
+                Weekly time drain per employee
+              </h3>
+              <p className="text-sm text-[var(--foreground-muted)] mb-4">
                 Routine report downloading, cleaning, and HR manual tracking consume massive portions of
                 the workweek. This donut chart illustrates the average hours wasted per week on
                 non-strategic manual tasks across different roles.
@@ -277,7 +319,7 @@ export default function SJTechPage() {
                   <div className="absolute inset-3 rounded-full border-[14px] border-[#3B82F6] border-t-[#E5E7EB] border-l-[#F59E0B] border-b-[#111827]" />
                   <div className="absolute inset-9 rounded-full bg-[#02192a]" />
                 </div>
-                <div className="space-y-2 text-xs">
+                <div className="space-y-2 text-xs text-[var(--foreground-muted)]">
                   <div className="flex items-center gap-2">
                     <span className="h-3 w-3 rounded-sm bg-[#F59E0B]" />
                     <span>HR Manual Tracking</span>
@@ -298,53 +340,86 @@ export default function SJTechPage() {
               </div>
             </GlassCard>
 
-            <GlassCard className="bg-[#02192a] border-0 text-[#DAE0F2]">
-              <h3 className="text-lg font-semibold mb-1">Hidden Annual Costs (Per 15 Employees)</h3>
-              <p className="text-xs text-[#A7B6D9] mb-4">
-                Fragmented tools lead to revenue loss and excessive labor costs. This chart visualizes how
-                manual reporting and tool fragmentation quickly reach six-figure losses for a small team.
+            <GlassCard>
+              <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2">
+                See your potential monthly savings
+              </h3>
+              <p className="text-sm text-[var(--foreground-muted)] mb-4">
+                Estimate how much time and money you could save by automating reporting and routine operational work.
               </p>
-              <div className="h-44 flex items-end gap-4 mb-4">
-                <div className="flex-1 flex flex-col justify-end">
-                  <div className="w-full bg-[#1C3B5A] rounded-t-md" style={{ height: '85%' }} />
-                  <span className="mt-2 text-xs text-center">Reporting Labor</span>
+              <div className="grid grid-cols-1 gap-3 text-sm">
+                <div>
+                  <label className="block text-[var(--foreground-muted)] mb-1">
+                    Team members involved in reporting / manual ops
+                  </label>
+                  <input
+                    type="number"
+                    min={1}
+                    value={teamSize}
+                    onChange={(e) => setTeamSize(e.target.value)}
+                    className="w-full rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                  />
                 </div>
-                <div className="flex-1 flex flex-col justify-end">
-                  <div className="w-full bg-[#3B82F6] rounded-t-md" style={{ height: '40%' }} />
-                  <span className="mt-2 text-xs text-center">HR Manual Entry</span>
+                <div>
+                  <label className="block text-[var(--foreground-muted)] mb-1">
+                    Avg monthly salary per member (₹)
+                  </label>
+                  <input
+                    type="number"
+                    min={0}
+                    value={avgSalary}
+                    onChange={(e) => setAvgSalary(e.target.value)}
+                    className="w-full rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                  />
                 </div>
-                <div className="flex-1 flex flex-col justify-end">
-                  <div className="w-full bg-[#60A5FA] rounded-t-md" style={{ height: '65%' }} />
-                  <span className="mt-2 text-xs text-center">Tool Fragmentation</span>
+                <div>
+                  <label className="block text-[var(--foreground-muted)] mb-1">
+                    Hours wasted per member / month on manual tasks
+                  </label>
+                  <input
+                    type="number"
+                    min={0}
+                    value={hoursWasted}
+                    onChange={(e) => setHoursWasted(e.target.value)}
+                    className="w-full rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                  />
                 </div>
               </div>
-              <div className="flex justify-between text-[10px] text-[#6B7280]">
-                <span>$0k</span>
-                <span>$10k</span>
-                <span>$20k</span>
-                <span>$30k+</span>
+              <div className="mt-4 p-3 rounded-lg bg-[var(--background-secondary)] text-sm">
+                <div className="text-xs text-[var(--foreground-muted)] mb-1">
+                  Estimated monthly savings from automation (approx.)
+                </div>
+                <div className="text-2xl font-bold text-[var(--foreground)]">
+                  {estimatedMonthlySavings > 0 ? `₹${estimatedMonthlySavings.toLocaleString('en-IN')}` : '—'}
+                </div>
+                <div className="mt-1 text-xs text-[var(--foreground-muted)]">
+                  Based on reclaiming ~40–60% of the time currently wasted on manual work. Get a free automation audit to see your real numbers.
+                </div>
               </div>
             </GlassCard>
           </div>
 
-          {/* Transforming Operational Efficiency Highlight */}
-          <GlassCard className="mt-10 bg-[var(--premium)] text-white border-0">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-              <div>
-                <h3 className="text-xl font-bold mb-2">
-                  Transforming Operational Efficiency
-                </h3>
-                <p className="text-sm md:text-base text-white/90 max-w-2xl">
-                  90% of organizations report that repetitive manual tasks actively hurt morale and drive staff turnover.
-                  A 1–3% data error rate in spreadsheets forces hours of costly rework every single month.
-                </p>
-              </div>
+          {/* Infographic: From manual reporting to intelligent operations */}
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2">
+              From manual reporting to intelligent operations
+            </h3>
+            <div className="relative w-full max-w-5xl mx-auto aspect-[2.5/1] rounded-2xl overflow-hidden">
+              <Image
+                src={require('@/components/before_after.png')}
+                alt="Before and after with SJ Tech: from manual reporting to intelligent operations"
+                fill
+                className="object-contain"
+                sizes="(min-width: 1024px) 1024px, 100vw"
+              />
             </div>
-          </GlassCard>
+          </div>
+
+          {/* End Pain → ROI Section content */}
         </div>
       </AnimatedSection>
 
-      {/* Key Offerings Section */}
+      {/* Solution Packages Section */}
       <AnimatedSection className="py-24 relative overflow-hidden bg-[var(--background-secondary)]">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -354,7 +429,8 @@ export default function SJTechPage() {
               viewport={{ once: true }}
               className="text-4xl md:text-5xl font-bold text-[var(--foreground)]"
             >
-              Key <span className="gradient-text">Offerings</span>
+              One platform <span className="gradient-text">for your entire 
+                Business</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -363,12 +439,13 @@ export default function SJTechPage() {
               transition={{ delay: 0.1 }}
               className="mt-4 text-lg text-[var(--foreground-muted)] max-w-2xl mx-auto"
             >
-              Comprehensive technology solutions tailored to drive your business forward.
+              Not a long “services menu”, but three focused solution packages designed to remove the manual work your
+              people are currently hired to do.
             </motion.p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {offerings.map((offering, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {solutionPackages.map((offering, index) => (
               <motion.div
                 key={offering.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -378,7 +455,7 @@ export default function SJTechPage() {
                 className="expandable-card"
               >
                 <GlassCard 
-                  className="cursor-pointer transition-all duration-300 hover:ring-2 hover:ring-[var(--primary)]"
+                  className="cursor-pointer transition-all duration-300 hover:ring-2 hover:ring-[var(--primary)] h-full flex flex-col"
                   hover={false}
                   onClick={() => handleServiceClick(offering)}
                 >
@@ -386,14 +463,14 @@ export default function SJTechPage() {
                     <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${offering.color} flex items-center justify-center flex-shrink-0`}>
                       <offering.icon className="w-7 h-7 text-white" />
                     </div>
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
                         <h3 className="text-xl font-bold text-[var(--foreground)]">
                           {offering.title}
                         </h3>
-                        <ChevronRight className="w-5 h-5 text-[var(--foreground-muted)]" />
+                        <ChevronRight className="w-5 h-5 text-[var(--foreground-muted)] flex-shrink-0" />
                       </div>
-                      <p className="text-[var(--foreground-muted)] mt-2 leading-relaxed">
+                      <p className="text-[var(--foreground-muted)] mt-2 leading-relaxed text-sm">
                         {offering.description}
                       </p>
                     </div>
@@ -405,7 +482,111 @@ export default function SJTechPage() {
         </div>
       </AnimatedSection>
 
-      {/* Technology Logos Section */}
+      {/* Proof & Case Studies Section */}
+      <AnimatedSection className="py-20 bg-[var(--background)]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <motion.h3
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-2xl md:text-3xl font-bold text-[var(--foreground)] mb-2"
+            >
+              Proof from teams like yours
+            </motion.h3>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-sm md:text-base text-[var(--foreground-muted)] max-w-2xl mx-auto"
+            >
+              We have delivered automation and analytics across e-commerce, manufacturing, services, and internal SJ Group
+              brands—always with one goal: free your people from low-value manual work.
+            </motion.p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-10">
+            <GlassCard>
+              <h4 className="text-lg font-semibold text-[var(--foreground)] mb-1">
+                E-commerce & marketplace brand
+              </h4>
+              <p className="text-xs text-[var(--foreground-muted)] mb-3">
+                Automated marketplace, ads, and payout reporting into a single dashboard.
+              </p>
+              <ul className="text-xs text-[var(--foreground-muted)] list-disc list-inside space-y-1">
+                <li>~2 hours/day saved per analyst.</li>
+                <li>Reduced stock-outs with real-time inventory alerts.</li>
+                <li>Leadership gets a weekly summary email, auto-generated.</li>
+              </ul>
+            </GlassCard>
+
+            <GlassCard>
+              <h4 className="text-lg font-semibold text-[var(--foreground)] mb-1">
+                Mid-size services & operations team
+              </h4>
+              <p className="text-xs text-[var(--foreground-muted)] mb-3">
+                Built an operations control tower combining HR, attendance, finance, and tasks.
+              </p>
+              <ul className="text-xs text-[var(--foreground-muted)] list-disc list-inside space-y-1">
+                <li>Month-end closing time reduced from 10 days to 4.</li>
+                <li>30–40% fewer manual follow-ups for status updates.</li>
+                <li>Managers make same-day decisions instead of waiting for reports.</li>
+              </ul>
+            </GlassCard>
+
+            <GlassCard>
+              <h4 className="text-lg font-semibold text-[var(--foreground)] mb-1">
+                Internal SJ Group products
+              </h4>
+              <p className="text-xs text-[var(--foreground-muted)] mb-3">
+                Platforms like HRMS and ProjectHub started as internal needs—and now power both our brands and clients.
+              </p>
+              <ul className="text-xs text-[var(--foreground-muted)] list-disc list-inside space-y-1">
+                <li>Real, daily usage by teams across SJ Group.</li>
+                <li>Battle-tested workflows and dashboards.</li>
+                <li>We bring operator experience, not just agency theory.</li>
+              </ul>
+            </GlassCard>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <GlassCard className="h-full">
+              <div className="text-xs uppercase tracking-wide text-[var(--foreground-muted)] mb-2">
+                Testimonials
+              </div>
+              <div className="space-y-4 text-sm text-[var(--foreground-muted)]">
+                <p>
+                  “We used to pull 8 different reports every day. Now everything is live in a single dashboard—saves my
+                  team at least 50 hours a month and our Monday mornings.”
+                </p>
+                <p>
+                  “SJ Tech connected our tools and built simple portals so my team spends time solving problems, not
+                  hunting for data.”
+                </p>
+              </div>
+            </GlassCard>
+
+            <GlassCard className="h-full">
+              <div className="text-xs uppercase tracking-wide text-[var(--foreground-muted)] mb-2">
+                Trusted by brands & teams
+              </div>
+              <p className="text-sm text-[var(--foreground-muted)] mb-4">
+                From growing businesses to established enterprises and internal SJ Group brands, we build and maintain
+                automation that teams actually use every day.
+              </p>
+              <div className="flex flex-wrap gap-2 text-xs text-[var(--foreground)]">
+                <span className="px-3 py-1 rounded-full bg-[var(--background-secondary)]">E-commerce brands</span>
+                <span className="px-3 py-1 rounded-full bg-[var(--background-secondary)]">Manufacturing SMEs</span>
+                <span className="px-3 py-1 rounded-full bg-[var(--background-secondary)]">Service organizations</span>
+                <span className="px-3 py-1 rounded-full bg-[var(--background-secondary)]">Internal SJ Group teams</span>
+              </div>
+            </GlassCard>
+          </div>
+        </div>
+      </AnimatedSection>
+
+      {/* Technology + AI Section */}
       <AnimatedSection className="py-16 relative overflow-hidden bg-[var(--background)]">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -415,7 +596,7 @@ export default function SJTechPage() {
               viewport={{ once: true }}
               className="text-2xl md:text-3xl font-bold text-[var(--foreground)] mb-2"
             >
-              Built with Leading Technologies
+              Scalable automation & AI, not fragile scripts
             </motion.h3>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -424,8 +605,44 @@ export default function SJTechPage() {
               transition={{ delay: 0.1 }}
               className="text-sm text-[var(--foreground-muted)]"
             >
-              Trusted by developers worldwide
+              Our team of 150+ tech experts builds on modern stacks like React, Next.js, Node.js, Python, and AWS—so your
+              dashboards, workflows, and AI agents are secure, scalable, and ready for change.
             </motion.p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8 mb-10">
+            <GlassCard>
+              <h4 className="text-lg font-semibold text-[var(--foreground)] mb-2">
+                Practical AI for everyday work
+              </h4>
+              <ul className="list-disc list-inside text-sm text-[var(--foreground-muted)] space-y-2">
+                <li>
+                  AI agents that read your business data and answer questions in plain language, like “Which customers or
+                  products dropped in margin last month?”.
+                </li>
+                <li>
+                  Assistants that draft weekly performance summaries for management with charts and highlights—no manual
+                  PPT work.
+                </li>
+                <li>
+                  Alert bots that watch for anomalies—sudden spikes in returns, delays, or cost—and send updates to
+                  email, Slack, or Teams.
+                </li>
+              </ul>
+            </GlassCard>
+            <GlassCard>
+              <h4 className="text-lg font-semibold text-[var(--foreground)] mb-2">
+                Built on your data, your rules
+              </h4>
+              <p className="text-sm text-[var(--foreground-muted)] mb-3">
+                We connect to the tools you already use—marketplaces, ERPs, HR systems, CRMs, spreadsheets—and design
+                automations around your real-world workflows.
+              </p>
+              <ul className="list-disc list-inside text-sm text-[var(--foreground-muted)] space-y-2">
+                <li>Secure data pipelines with audit trails and access controls.</li>
+                <li>Modular architecture so changes in one tool do not break everything.</li>
+                <li>Documentation and training so your team can use and extend what we build.</li>
+              </ul>
+            </GlassCard>
           </div>
           <div className="py-8 bg-[var(--background-secondary)] rounded-2xl px-8 overflow-hidden relative">
             <LogoLoop
@@ -457,15 +674,36 @@ export default function SJTechPage() {
         </div>
       </AnimatedSection>
 
+      {/* SJ Tech within SJ Group */}
+      <AnimatedSection className="py-16 bg-[var(--background-secondary)]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <GlassCard className="bg-[var(--background)]/80">
+            <h3 className="text-2xl font-bold text-[var(--foreground)] mb-3">
+              Who we are within SJ Group
+            </h3>
+            <p className="text-sm md:text-base text-[var(--foreground-muted)] mb-4">
+              SJ Tech is the technology and automation arm of SJ Group—building data, analytics, and digital products
+              for both our own brands and external clients.
+            </p>
+            <p className="text-sm md:text-base text-[var(--foreground-muted)]">
+              Because we build and run real products like Melora, JivaPure, HRMS, and ProjectHub, we bring real operator
+              experience to every engagement. We know what it means to keep dashboards accurate, workflows simple, and
+              teams actually using what we ship.
+            </p>
+          </GlassCard>
+        </div>
+      </AnimatedSection>
+
       {/* CTA Section */}
       <AnimatedSection className="py-24 relative overflow-hidden bg-[var(--background)]">
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <GlassCard className="p-12 md:p-16 bg-gradient-to-br from-[var(--primary)]/5 to-[var(--secondary)]/5">
             <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-4">
-            Invest in the Future of Work
+              Free your team from manual work in the next 90 days
             </h2>
             <p className="text-lg text-[var(--foreground-muted)] mb-8 max-w-2xl mx-auto">
-            Sj Tech Solutions is positioned to capture the massive demand for business automation, driving immediate ROI for our clients and recurring, scalable revenue for our clients.
+              Book a free 30-minute automation audit and we&apos;ll map your current reporting and operations, identify
+              quick-win automations, and share a clear roadmap to save 40–80 hours per month.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/contact">
@@ -474,7 +712,7 @@ export default function SJTechPage() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Start a Project
+                  Book your free automation audit
                   <ArrowRight className="w-5 h-5" />
                 </motion.button>
               </Link>
@@ -484,23 +722,62 @@ export default function SJTechPage() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Learn About Us
+                  Learn how SJ Tech works
                 </motion.button>
               </Link>
             </div>
+            <p className="mt-4 text-sm text-[var(--foreground-muted)]">
+              We reply in under 24 hours. In our first call, we focus on understanding your workflows, spotting quick
+              wins, and aligning on a 2–6 week build plan.
+            </p>
           </GlassCard>
         </div>
       </AnimatedSection>
 
-      {/* Service Selection Flow */}
-      {selectedService && (
-        <ServiceSelectionFlow
-          isOpen={isFlowOpen}
-          onClose={handleCloseFlow}
-          serviceId={selectedService.id}
-          serviceName={selectedService.title}
-        />
-      )}
+      {/* Solution package popup */}
+      <AnimatePresence>
+        {isFlowOpen && selectedService && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+            onClick={handleClosePopup}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ type: 'tween', duration: 0.2 }}
+              className="relative w-full max-w-lg rounded-2xl bg-[var(--background)] border border-[var(--border)] shadow-xl p-6"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                aria-label="Close"
+                className="absolute top-4 right-4 p-1 rounded-lg text-[var(--foreground-muted)] hover:bg-[var(--background-secondary)] hover:text-[var(--foreground)]"
+                onClick={handleClosePopup}
+              >
+                <X className="w-5 h-5" />
+              </button>
+              <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${selectedService.color} mb-4`}>
+                <selectedService.icon className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-[var(--foreground)] mb-3">
+                {selectedService.title}
+              </h3>
+              <ul className="space-y-2 text-[var(--foreground-muted)]">
+                {selectedService.popupContent.map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <span className="text-[var(--primary)] mt-1.5 shrink-0">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

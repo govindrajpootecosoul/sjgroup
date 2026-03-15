@@ -81,7 +81,7 @@ export function PageHero({ title, subtitle, description, children, compact = fal
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-10"
+            className={compact ? 'mt-6' : 'mt-10'}
           >
             {children}
           </motion.div>
