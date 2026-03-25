@@ -23,8 +23,6 @@ const navItems: NavItem[] = [
     labelKey: 'nav.services',
     href: '/services',
     children: [
-      { labelKey: 'services.melora.title', href: '/services/melora', descriptionKey: 'services.melora.subtitle' },
-      { labelKey: 'services.jivapure.title', href: '/services/jivapure', descriptionKey: 'services.jivapure.subtitle' },
       { labelKey: 'services.sjtech.title', href: '/services/sj-tech', descriptionKey: 'services.sjtech.subtitle' },
     ],
   },

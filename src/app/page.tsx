@@ -79,20 +79,6 @@ const features = [
 // Infinite Moving Cards items
 const movingCardsItems = [
   { 
-    name: 'Melora', 
-    title: 'Retail & Fashion Solutions', 
-    bgColor: '#012436', 
-    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop&q=80',
-    variant: 'card' as const 
-  },
-  { 
-    name: 'JivaPure', 
-    title: 'Natural Wellness Products', 
-    bgColor: '#16a34a', 
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&q=80',
-    variant: 'card' as const 
-  },
-  { 
     name: 'SJ Tech', 
     title: 'Digital Solutions & Services', 
     bgColor: '#7c3aed', 
@@ -138,18 +124,6 @@ const movingCardsItems = [
 
 // Services preview
 const services = [
-  {
-    title: 'Melora',
-    description: 'Premium retail solutions for clothing businesses with AI-powered inventory and analytics.',
-    href: '/services/melora',
-    gradient: 'from-[var(--primary)] to-[var(--secondary)]',
-  },
-  {
-    title: 'JivaPure',
-    description: 'Pure and natural products delivering wellness through sustainable practices.',
-    href: '/services/jivapure',
-    gradient: 'from-[var(--secondary)] to-white',
-  },
   {
     title: 'SJ Tech Solution',
     description: 'Solutions that move you forward - Enterprise technology services at scale.',

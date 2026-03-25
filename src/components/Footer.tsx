@@ -32,8 +32,6 @@ export function Footer() {
       { label: t('footer.terms'), href: '/terms-conditions' },
     ],
     services: [
-      { label: 'Melora', href: '/services/melora' },
-      { label: 'JivaPure', href: '/services/jivapure' },
       { label: 'SJ Tech Solution', href: '/services/sj-tech' },
       { label: 'HRMS', href: '/products/hrms' },
       { label: 'ProjectHub', href: '/products/projecthub' },
